@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<!--
+  ================================================================
+  ARQUIVO: index.html
+  FUNÇÃO:  PÁGINA ÚNICA do site — exibe o Hero (tela principal)
+           seguido do FAQ interativo com losangos na mesma página.
+
+  DADOS:   As perguntas ficam em faq-data.js
+  LÓGICA:  A lógica dos losangos fica em faq.js
+  ================================================================
+-->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Título da aba -->
+  <title>Central de Suporte FAQ</title>
+
+  <!-- SEO -->
+  <meta name="description"
+    content="Central de Suporte e Perguntas Frequentes. Encontre respostas rápidas para os problemas mais comuns." />
+
+  <!-- Fontes Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Outfit:wght@300;400;700;900&display=swap"
+    rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css?v=3" />
+</head>
+
+<body class="home-page">
+
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <nav class="navbar">
+    <!-- TUCANO E MARCA integrados -->
+    <a href="#topo" class="nav-logo-landscape" id="nav-logo-link" title="Voltar ao início">
+      <div class="landscape-bg"></div>
+
+      <!-- O texto SuporteFAQ flutuando SOBRE o cenário -->
+      <span class="nav-brand-text logo-integrated">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">SuporteFAQ</span>
+      </span>
+
+      <!-- Tucano passa pela estrutura -->
+      <!-- Tucano passa pela estrutura -->
+      <div class="toucan-sprite" id="navbar-toucan"></div>
+    </a>
+
+    <div class="nav-links">
+      <a href="#topo" class="nav-link" id="nav-inicio">Início</a>
+      <a href="#topicos" class="nav-link" id="nav-topicos">Principais Tópicos</a>
+      <a href="#faq" class="nav-link" id="nav-faq">FAQ</a>
+    </div>
+  </nav>
+
+
+  <!-- ============================================================
+       HERO — tela principal de boas-vindas
+       ============================================================ -->
+  <section class="hero" id="topo">
+
+    <!-- Formas decorativas de fundo -->
+    <div class="hero-bg-shapes">
+      <div class="bg-shape shape-1"></div>
+      <div class="bg-shape shape-2"></div>
+      <div class="bg-shape shape-3"></div>
+    </div>
+
+    <!-- Texto à esquerda -->
+    <div class="hero-content">
+      <!-- BARRA DE PESQUISA ESTILO CARD (PRÓXIMO À NAVBAR) -->
+      <div class="hero-search-wrapper" style="margin-top: 0; margin-bottom: 32px;">
+        <div class="hero-search-card" id="hero-search-wrapper">
+          <input type="text" class="hero-search-input" id="faq-search-input"
+            placeholder="Pesquisar por problema ou dúvida...">
+          <button class="hero-search-btn" id="faq-search-btn" title="Pesquisar">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-badge">Central de Suporte</div>
+
+      <h1 class="hero-title">
+        Como podemos <span class="gradient-text">te ajudar</span> hoje?
+      </h1>
+
+      <p class="hero-subtitle">
+        Encontre respostas rápidas para as dúvidas mais comuns.<br />
+        Selecione um tópico abaixo ou acesse nosso FAQ interativo.
+      </p>
+
+      <!-- Botão Secundário -->
+      <div class="hero-actions" style="display: flex; justify-content: center; gap: 14px; margin-top: 14px;">
+        <a href="#faq" class="btn-primary" id="btn-acessar-faq" style="align-self: center;">
+          <span>Acessar FAQ Interativo</span>
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Visual animado à direita -->
+    <div class="hero-visual">
+      <div class="floating-card card-1">
+        <span class="card-icon">💡</span>
+        <span>Dúvidas Técnicas</span>
+      </div>
+      <div class="floating-card card-2">
+        <span class="card-icon">🔧</span>
+        <span>Configurações</span>
+      </div>
+      <div class="floating-card card-3">
+        <span class="card-icon">✅</span>
+        <span>Resolvido!</span>
+      </div>
+      <div class="hero-diamond-grid">
+        <div class="mini-diamond d1"></div>
+        <div class="mini-diamond d2"></div>
+        <div class="mini-diamond d3"></div>
+        <div class="mini-diamond d4"></div>
+        <div class="mini-diamond d5"></div>
+        <div class="mini-diamond d6"></div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ============================================================
+       TÓPICOS — cards de categoria clicáveis
+       ============================================================ -->
+  <section class="topics-section" id="topicos">
+    <div class="section-header">
+      <h2>Principais Tópicos</h2>
+      <p>Selecione a categoria que melhor descreve sua dúvida</p>
+    </div>
+
+    <div class="topics-grid">
+      <!--
+        Cada card usa data-topic para filtrar os losangos do FAQ abaixo.
+        Para ADICIONAR UM NOVO TÓPICO: copie um bloco abaixo e ajuste.
+      -->
+      <a href="#faq" class="topic-card" id="topic-conta" data-topic="conta">
+        <div class="topic-icon-wrap"><span class="topic-icon">👤</span></div>
+        <h3 class="topic-title">Conta e Acesso</h3>
+        <p class="topic-desc">Problemas de login, senha, cadastro e permissões de usuário.</p>
+        <div class="topic-tag">5 artigos</div>
+        <span class="topic-arrow">→</span>
+      </a>
+
+      <a href="#faq" class="topic-card" id="topic-sistema" data-topic="sistema">
+        <div class="topic-icon-wrap"><span class="topic-icon">🖥️</span></div>
+        <h3 class="topic-title">Sistema e Instalação</h3>
+        <p class="topic-desc">Requisitos, instalação, atualizações e configurações do sistema.</p>
+        <div class="topic-tag">7 artigos</div>
+        <span class="topic-arrow">→</span>
+      </a>
+
+
+      <a href="#faq" class="topic-card" id="topic-financeiro" data-topic="financeiro">
+        <div class="topic-icon-wrap"><span class="topic-icon">💳</span></div>
+        <h3 class="topic-title">Financeiro</h3>
+        <p class="topic-desc">Pagamentos, cobranças, notas fiscais e planos de assinatura.</p>
+        <div class="topic-tag">6 artigos</div>
+        <span class="topic-arrow">→</span>
+      </a>
+
+
+      <a href="#faq" class="topic-card" id="topic-impressao" data-topic="impressao">
+        <div class="topic-icon-wrap"><span class="topic-icon">🖨️</span></div>
+        <h3 class="topic-title">Impressão</h3>
+        <p class="topic-desc">Configuração de impressoras, etiquetas, formulários e relatórios impressos.</p>
+        <div class="topic-tag">5 artigos</div>
+        <span class="topic-arrow">→</span>
+      </a>
+
+      <a href="#faq" class="topic-card" id="topic-outros" data-topic="outros">
+        <div class="topic-icon-wrap"><span class="topic-icon">💬</span></div>
+        <h3 class="topic-title">Outros Assuntos</h3>
+        <p class="topic-desc">Dúvidas gerais, sugestões, feedbacks e contato com o suporte.</p>
+        <div class="topic-tag">2 artigos</div>
+        <span class="topic-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FAQ INTERATIVO — losangos + painel de resposta
+       ============================================================ -->
+  <section class="faq-section-wrapper" id="faq">
+
+    <!-- Cabeçalho do FAQ -->
+    <div class="faq-header">
+      <h2 class="faq-title">
+        Perguntas <span class="gradient-text">Frequentes</span>
+      </h2>
+      <p class="faq-subtitle">Clique em um losango para ver a resposta completa</p>
+
+      <!--
+        BARRA DE FILTROS
+        ⚠️ Para nova categoria: adicione botão aqui com data-topic="NOME"
+            e adicione as perguntas em faq-data.js
+      -->
+      <div class="filter-bar" id="filter-bar">
+        <button class="filter-btn active" data-topic="all" id="filter-all">Todos</button>
+        <button class="filter-btn" data-topic="conta" id="filter-conta">👤 Conta</button>
+        <button class="filter-btn" data-topic="sistema" id="filter-sistema">🖥️ Sistema</button>
+        <button class="filter-btn" data-topic="financeiro" id="filter-financeiro">💳 Financeiro</button>
+        <button class="filter-btn" data-topic="impressao" id="filter-impressao">🖨️ Impressão</button>
+      </div>
+    </div>
+
+    <!-- Losangos (criados pelo JS) -->
+    <div class="diamonds-section">
+      <div class="diamonds-track" id="diamonds-track">
+        <!-- Inserido dinamicamente por faq.js → renderDiamonds() -->
+      </div>
+
+      <!-- Painel de resposta (aparece ao clicar num losango) -->
+      <div class="answer-panel" id="answer-panel">
+        <div class="answer-panel-inner">
+
+          <div class="answer-topic-badge" id="answer-badge"></div>
+          <h2 class="answer-question" id="answer-question">Selecione uma pergunta acima</h2>
+          <div class="answer-divider"></div>
+          <p class="answer-text" id="answer-text">Clique em um dos losangos acima para ver a resposta aqui.</p>
+
+          <div class="answer-actions">
+            <button class="btn-resume" id="btn-resume" onclick="resumeAll()">▶ Voltar ao topo</button>
+            <button class="btn-helpful" id="btn-helpful" onclick="markHelpful()">👍 Isso ajudou</button>
+            <button class="btn-not-helpful" id="btn-not-helpful" onclick="toggleNotHelpful()">👎 Isso não
+              ajudou</button>
+          </div>
+
+          <div class="not-helpful-form" id="not-helpful-form">
+            <div class="not-helpful-form-inner">
+              <p class="not-helpful-label">
+                😔 Descreva brevemente sua dificuldade e enviaremos ao suporte:
+              </p>
+              <textarea id="not-helpful-text" class="not-helpful-textarea"
+                placeholder="Ex: Segui os passos mas o problema continua. Quando clico em X, aparece o erro Y..."
+                rows="4" maxlength="500"></textarea>
+              <div class="not-helpful-footer">
+                <span class="char-counter" id="char-counter">0 / 500</span>
+                <div class="contact-options">
+                  <p>Ou entre em contato diretamente:</p>
+                  <p>📞 Ramal 1460 - Samuel Krap</p>
+                  <p>📞 Ramal 1442 - Lucas Menezes / Gabriel</p>
+                </div>
+                <button class="btn-send-support" id="btn-send-support" onclick="sendToSupport()">
+                  📧 Enviar para o Suporte
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ============================================================
+       CONTATO
+       ============================================================ -->
+  <section class="contact-section">
+    <div class="contact-card">
+      <div class="contact-info">
+        <h2>Não encontrou o qu e procurava?</h2>
+        <p>Nossa equipe está disponível para te ajudar com qualquer dúvida.</p>
+      </div>
+      <div class="contact-actions">
+        <!-- ⚠️ ALTERE O E-MAIL para o e-mail real do suporte -->
+        <a href="mailto:suporte@gruposouth.com.br" class="btn-secondary" id="btn-email">
+          📧 Enviar E-mail
+        </a>
+        <a href="#faq" class="btn-primary" id="btn-faq-link">
+          Ver todo o FAQ →
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-icon">⬡</span>
+        <span>SuporteFAQ</span>
+      </div>
+      <!-- ⚠️ Altere o ano e nome da empresa -->
+      <p class="footer-copy">© 2026 Central de Suporte. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+
+  <!--
+    SCRIPTS — ordem importa:
+      1. faq-data.js → define FAQ_DATA
+      2. faq.js      → usa FAQ_DATA para criar os losangos
+      3. main.js     → animações de scroll dos cards
+  -->
+  <!-- PAINEL ADMIN (MODO CONTRIBUIDOR) -->
+  <section id="faq-admin-panel">
+    <div class="admin-header">
+      <h2 class="admin-title">Gerenciador de Conteúdo FAQ</h2>
+      <button class="admin-close" id="admin-close-btn">&times;</button>
+    </div>
+
+    <div class="admin-grid">
+      <div class="admin-list-container">
+        <h3>Perguntas Atuais</h3>
+        <div class="admin-list" id="admin-items-list">
+          <!-- Gerado via JS -->
+        </div>
+      </div>
+
+      <div class="admin-editor">
+        <h3>Adicionar / Editar Pergunta</h3>
+        <div class="admin-controls">
+          <input type="hidden" id="edit-id">
+
+          <div class="admin-form-group">
+            <label class="admin-label">Pergunta</label>
+            <input type="text" id="edit-question" class="admin-input" placeholder="Ex: Como redefinir senha?">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-label">Resposta (Suporta quebras de linha)</label>
+            <textarea id="edit-answer" class="admin-textarea"
+              placeholder="Dica: Use 1. 2. 3. para listas..."></textarea>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-label">Categoria</label>
+            <select id="edit-topic" class="admin-select">
+              <option value="conta">👤 Conta e Acesso</option>
+              <option value="sistema">🖥️ Sistema e Instalação</option>
+              <option value="financeiro">💳 Financeiro</option>
+              <option value="impressao">🖨️ Impressão</option>
+              <option value="outros">💬 Outros Assuntos</option>
+            </select>
+          </div>
+
+          <button class="admin-btn primary" id="admin-save-btn">Salvar Alteração</button>
+          <button class="admin-btn export" id="admin-export-btn">💾 Baixar novo arquivo faq-data.js</button>
+
+          <p style="margin-top: 20px; font-size: 0.85rem; color: #71717a; line-height: 1.4;">
+            <strong>Como salvar:</strong> Após clicar em baixar, substitua o arquivo <code>faq-data.js</code> na pasta
+            do projeto pelo novo arquivo que você baixou.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="faq-data.js?v=2"></script>
+  <script src="faq.js?v=3"></script>
+  <script src="main.js?v=2"></script>
+
+  <!-- Navbar scroll effect: encolhe e escurece ao rolar -->
+  <script>
+    (function () {
+      const navbar = document.querySelector('.navbar');
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            navbar.classList.toggle('scrolled', window.scrollY > 40);
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    })();
+  </script>
+
+  <!-- Filtro via cards de tópico -->
+  <script>
+    document.querySelectorAll('.topic-card[data-topic]').forEach(card => {
+      card.addEventListener('click', () => {
+        const topic = card.dataset.topic;
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.topic === topic);
+        });
+        currentFilter = topic;
+        renderDiamonds(FAQ_DATA);
+      });
+    });
+  </script>
+
+  <!-- Destaca link ativo na navbar conforme a seção visível -->
+  <script>
+    const navLinks = {
+      'topo': document.getElementById('nav-inicio'),
+      'topicos': document.getElementById('nav-topicos'),
+      'faq': document.getElementById('nav-faq'),
+    };
+
+    const sections = ['topo', 'topicos', 'faq'].map(id => document.getElementById(id));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Remove active de todos
+          Object.values(navLinks).forEach(l => l && l.classList.remove('active'));
+          // Adiciona no link correspondente à seção visível
+          const link = navLinks[entry.target.id];
+          if (link) link.classList.add('active');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    sections.forEach(s => s && observer.observe(s));
+  </script>
+
+  <!-- ✨ Parallax de mouse no Hero -->
+  <script>
+    const hero = document.getElementById('topo');
+
+    // Factores de profundidade: cada elemento se move numa velocidade diferente
+    const parallaxItems = [
+      { el: document.querySelector('.mini-diamond.d1'), fx: 0.04, fy: 0.03 },
+      { el: document.querySelector('.mini-diamond.d2'), fx: -0.07, fy: 0.05 },
+      { el: document.querySelector('.mini-diamond.d3'), fx: 0.06, fy: -0.04 },
+      { el: document.querySelector('.mini-diamond.d4'), fx: -0.05, fy: -0.06 },
+      { el: document.querySelector('.mini-diamond.d5'), fx: 0.08, fy: 0.04 },
+      { el: document.querySelector('.mini-diamond.d6'), fx: -0.03, fy: 0.07 },
+      { el: document.querySelector('.floating-card.card-1'), fx: 0.025, fy: 0.015 },
+      { el: document.querySelector('.floating-card.card-2'), fx: -0.02, fy: 0.02 },
+      { el: document.querySelector('.floating-card.card-3'), fx: 0.03, fy: -0.02 },
+    ].filter(item => item.el); // remove nulos se o elemento não existir
+
+    // Armazena as transformações de animação base para não sobrescrever
+    const baseTransforms = new Map();
+    parallaxItems.forEach(({ el }) => {
+      baseTransforms.set(el, getComputedStyle(el).transform || '');
+    });
+
+    // Detecção de proximidade para brilho nos mini-losangos
+    const miniDiamonds = document.querySelectorAll('.mini-diamond');
+    const GLOW_RADIUS = 160; // px — raio de ativação do brilho
+
+    let mouseX = 0, mouseY = 0;
+    let rafId = null;
+
+    hero && hero.addEventListener('mousemove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      mouseX = e.clientX - rect.left - rect.width / 2;
+      mouseY = e.clientY - rect.top - rect.height / 2;
+
+      if (!rafId) {
+        rafId = requestAnimationFrame(() => {
+          rafId = null;
+
+          // — Parallax nos elementos —
+          parallaxItems.forEach(({ el, fx, fy }) => {
+            const tx = mouseX * fx;
+            const ty = mouseY * fy;
+            el.style.setProperty('--px', `${tx}px`);
+            el.style.setProperty('--py', `${ty}px`);
+            // Aplica a translação preservando a animação CSS (rotate via separate property)
+            el.style.translate = `${tx}px ${ty}px`;
+          });
+
+          // — Glow por proximidade nos mini-losangos —
+          miniDiamonds.forEach(md => {
+            const r = md.getBoundingClientRect();
+            const cx = r.left + r.width / 2 - hero.getBoundingClientRect().left;
+            const cy = r.top + r.height / 2 - hero.getBoundingClientRect().top;
+            const dist = Math.hypot(
+              e.clientX - hero.getBoundingClientRect().left - cx,
+              e.clientY - hero.getBoundingClientRect().top - cy
+            );
+            md.classList.toggle('hover-glow', dist < GLOW_RADIUS);
+          });
+        });
+      }
+    });
+
+    hero && hero.addEventListener('mouseleave', () => {
+      // Volta ao centro ao sair do hero
+      parallaxItems.forEach(({ el }) => { el.style.translate = '0px 0px'; });
+      miniDiamonds.forEach(md => md.classList.remove('hover-glow'));
+    });
+  </script>
+
+</body>
+
+</html>

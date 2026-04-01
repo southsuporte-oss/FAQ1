@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<!--
+  ================================================================
+  ARQUIVO: faq.html
+  FUNÇÃO:  Página SECUNDÁRIA do site — FAQ interativo com losangos.
+           Os losangos giram automaticamente. Ao clicar em um,
+           ele para com a ponta pra cima e exibe a resposta abaixo.
+  DADOS:   As perguntas/respostas ficam no arquivo faq-data.js
+  LÓGICA:  A lógica de clique e filtros fica no arquivo faq.js
+  ================================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Título da aba do navegador -->
+  <title>FAQ Interativo — Central de Suporte</title>
+
+  <!-- Descrição SEO -->
+  <meta name="description" content="Perguntas Frequentes interativas com animação. Clique nos losangos para ver a resposta." />
+
+  <!-- Fontes Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet" />
+
+  <!-- CSS compartilhado com index.html -->
+  <link rel="stylesheet" href="style.css?v=2" />
+</head>
+
+<body class="faq-page">
+  <!--
+    CLASSE "faq-page": diferencia esta página da index.html (class="home-page")
+  -->
+
+  <!-- ============================================================
+       NAVBAR — igual à index.html
+       Logo clicável volta para index.html
+       ============================================================ -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-icon">⬡</span>
+      <span class="logo-text">SuporteFAQ</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Início</a>
+      <a href="faq.html"   class="nav-link active">FAQ</a> <!-- "active" = esta página -->
+    </div>
+  </nav>
+
+
+  <!-- ============================================================
+       CABEÇALHO DO FAQ — título, subtítulo e barra de filtros
+       ============================================================ -->
+  <section class="faq-header">
+
+    <!-- Título principal -->
+    <h1 class="faq-title">
+      Perguntas <span class="gradient-text">Frequentes</span>
+    </h1>
+
+    <!-- Instrução de uso para o usuário -->
+    <p class="faq-subtitle">Clique em um losango para pausar e ver a resposta completa</p>
+
+    <!-- BARRA DE PESQUISA COMPLETA (COM BALÃO) -->
+    <div class="hero-search" style="position: relative; margin: 24px auto; display: flex; align-items: center; background: #ffffff; border: 1.5px solid #d4d4d8; border-radius: 50px; padding: 4px 6px 4px 18px; width: 100%; max-width: 400px; box-shadow: 0 4px 12px rgba(0,0,0,0.04);">
+      <input type="text" class="hero-search-input" id="faq-search-input" placeholder="Pesquisar dúvidas, palavras, boletos..." style="border: none; outline: none; background: transparent; width: 100%; font-size: 1rem; color: #111;">
+      <button class="hero-search-btn" id="faq-search-btn" onclick="document.getElementById('faq-search-input').focus()" style="background: #18181b; color: #fff; border: none; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s;">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+      </button>
+      <!-- O Balão de Auto-complete será renderizado pelo JS (faq.js) aqui dentro -->
+    </div>
+
+    <!--
+      BARRA DE FILTROS — filtra os losangos por categoria.
+      - data-topic="all"        → mostra todos
+      - data-topic="conta"      → mostra só os de Conta e Acesso
+      - etc.
+
+      ⚠️ PARA ADICIONAR UMA NOVA CATEGORIA:
+         1. Adicione um botão aqui com data-topic="NOME_DA_CATEGORIA"
+         2. Adicione as perguntas em faq-data.js com topic: "NOME_DA_CATEGORIA"
+         3. Adicione a cor do losango no CSS (.diamond.cat-NOME_DA_CATEGORIA)
+    -->
+    <div class="filter-bar" id="filter-bar">
+      <button class="filter-btn active" data-topic="all"        id="filter-all">Todos</button>
+      <button class="filter-btn"        data-topic="conta"      id="filter-conta">👤 Conta</button>
+      <button class="filter-btn"        data-topic="sistema"    id="filter-sistema">🖥️ Sistema</button>
+      <button class="filter-btn"        data-topic="relatorios" id="filter-relatorios">📊 Relatórios</button>
+      <button class="filter-btn"        data-topic="financeiro" id="filter-financeiro">💳 Financeiro</button>
+      <button class="filter-btn"        data-topic="integracao" id="filter-integracao">🔗 Integrações</button>
+      <button class="filter-btn"        data-topic="seguranca"  id="filter-seguranca">🔒 Segurança</button>
+      <button class="filter-btn"        data-topic="impressao"  id="filter-impressao">🖨️ Impressão</button>
+    </div>
+
+  </section>
+
+
+  <!-- ============================================================
+       SEÇÃO DOS LOSANGOS + PAINEL DE RESPOSTA
+       ============================================================ -->
+  <section class="diamonds-section">
+
+    <!--
+      TRILHA DOS LOSANGOS
+      Os losangos são criados DINAMICAMENTE pelo JavaScript (faq.js).
+      Este div serve apenas como container onde o JS insere os elementos.
+      Quando o filtro muda, o JS limpa este container e insere os novos.
+    -->
+    <div class="diamonds-track" id="diamonds-track">
+      <!-- Losangos inseridos aqui via faq.js → função renderDiamonds() -->
+    </div>
+
+
+    <!--
+      PAINEL DE RESPOSTA
+      Fica invisível (opacity:0) até o usuário clicar num losango.
+      Quando clicado, o JS adiciona a classe "visible" e ele aparece.
+
+      IDs importantes para o JS preencher dinamicamente:
+        #answer-badge    → nome da categoria (ex: "👤 Conta e Acesso")
+        #answer-question → texto da pergunta clicada
+        #answer-text     → texto da resposta completa
+    -->
+    <div class="answer-panel" id="answer-panel">
+      <div class="answer-panel-inner">
+
+        <!-- Badge da categoria (preenchida pelo JS) -->
+        <div class="answer-topic-badge" id="answer-badge"></div>
+
+        <!-- Pergunta selecionada (preenchida pelo JS) -->
+        <h2 class="answer-question" id="answer-question">Selecione uma pergunta acima</h2>
+
+        <!-- Linha divisória decorativa -->
+        <div class="answer-divider"></div>
+
+        <!-- Texto da resposta (preenchido pelo JS) -->
+        <p class="answer-text" id="answer-text">Clique em um dos losangos acima para ver a resposta aqui.</p>
+
+        <!--
+          BOTÕES DE AÇÃO DO PAINEL
+          Funções chamadas: resumeAll(), markHelpful(), toggleNotHelpful()
+          Todas definidas em faq.js
+        -->
+        <div class="answer-actions">
+
+          <!-- Retoma a rotação dos losangos e esconde o painel -->
+          <button class="btn-resume" id="btn-resume" onclick="resumeAll()">
+            ▶ Continuar girando
+          </button>
+
+          <!-- Feedback positivo: muda o texto para confirmação de ajuda -->
+          <button class="btn-helpful" id="btn-helpful" onclick="markHelpful()">
+            👍 Isso ajudou
+          </button>
+
+          <!-- Feedback negativo: abre o formulário de contato abaixo -->
+          <button class="btn-not-helpful" id="btn-not-helpful" onclick="toggleNotHelpful()">
+            👎 Isso não ajudou
+          </button>
+
+        </div>
+
+        <!--
+          FORMULÁRIO "NÃO AJUDOU"
+          Começa fechado (max-height:0, opacity:0).
+          Abre com animação quando o usuário clica em "Isso não ajudou".
+          A classe "open" é adicionada pelo JS → toggleNotHelpful()
+
+          Ao clicar em "Enviar para o Suporte":
+            - Monta um link mailto: com o assunto e corpo pré-preenchidos
+            - Abre o cliente de e-mail do usuário (Outlook, Gmail, etc.)
+
+          ⚠️ Para mudar o e-mail de destino, edite a função sendToSupport() em faq.js
+        -->
+        <div class="not-helpful-form" id="not-helpful-form">
+          <div class="not-helpful-form-inner">
+
+            <p class="not-helpful-label">
+              😔 Descreva brevemente sua dificuldade e enviaremos ao suporte:
+            </p>
+
+            <!--
+              Campo de texto para o usuário descrever o problema.
+              maxlength="500" → limite de 500 caracteres
+              O contador abaixo atualiza em tempo real via faq.js
+            -->
+            <textarea
+              id="not-helpful-text"
+              class="not-helpful-textarea"
+              placeholder="Ex: Segui os passos mas o problema continua. Quando clico em X, aparece o erro Y..."
+              rows="4"
+              maxlength="500"
+            ></textarea>
+
+            <div class="not-helpful-footer">
+              <!-- Contador de caracteres (atualizado pelo JS) -->
+              <span class="char-counter" id="char-counter">0 / 500</span>
+
+              <!-- Opções de contato -->
+              <div class="contact-options">
+                <p>Ou entre em contato diretamente:</p>
+                <p>📞 Ramal 1460 - Samuel Krap</p>
+                <p>📞 Ramal 1442 - Lucas Menezes / Gabriel</p>
+              </div>
+
+              <!-- Botão que dispara o mailto e feedback visual -->
+              <button class="btn-send-support" id="btn-send-support" onclick="sendToSupport()">
+                📧 Enviar para o Suporte
+              </button>
+            </div>
+
+          </div>
+        </div><!-- fim .not-helpful-form -->
+
+      </div><!-- fim .answer-panel-inner -->
+    </div><!-- fim #answer-panel -->
+
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-icon">⬡</span>
+        <span>SuporteFAQ</span>
+      </div>
+      <p class="footer-copy">© 2026 Central de Suporte. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+
+  <!--
+    SCRIPTS — carregados no final do body (boa prática: HTML já foi lido antes)
+
+    ORDEM IMPORTA:
+      1. faq-data.js → define o array FAQ_DATA com perguntas e respostas
+      2. faq.js      → usa FAQ_DATA para criar os losangos (precisa carregar depois)
+  -->
+  <!-- SCRIPTS -->
+  <script src="faq-data.js?v=2"></script>
+  <script src="faq.js?v=3"></script>
+
+</body>
+</html>
